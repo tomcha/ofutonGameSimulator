@@ -1,23 +1,38 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
 
 func main() {
 	var stock []string
+	stock = stockInit()
+	fmt.Print(stock, "\n")
+
+	p1Hand := playerInit()
+	p2Hand := playerInit()
+	fmt.Println(p1Hand, "\n", p2Hand, "\n")
+}
+
+func stockInit() []string {
+	var s []string
 	for i := 0; i < 3; i++ {
-		stock = append(stock, "r")
-		stock = append(stock, "g")
-		stock = append(stock, "y")
-		stock = append(stock, "b")
+		s = append(s, "r")
+		s = append(s, "g")
+		s = append(s, "y")
+		s = append(s, "b")
 	}
 	for i := 0; i < 2; i++ {
-		stock = append(stock, "b")
-		stock = append(stock, "w")
+		s = append(s, "l")
+		s = append(s, "w")
 	}
-	fmt.Print(stock)
+	rand.Seed(time.Now().UnixNano())
+	rand.Shuffle(len(s), func(i, j int) { s[i], s[j] = s[j], s[i] })
+	return s
+}
 
-	p1Hand := map[string]int{"r": 0, "g": 0, "y": 0, "b": 0}
-	p2Hand := map[string]int{"r": 0, "g": 0, "y": 0, "b": 0}
-	fmt.Println(p1Hand)
-	fmt.Println(p2Hand)
+func playerInit() map[string]int {
+	return map[string]int{"r": 0, "g": 0, "y": 0, "b": 0}
 }
