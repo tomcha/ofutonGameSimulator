@@ -6,14 +6,23 @@ import (
 	"time"
 )
 
+type player struct {
+	name   string
+	inHand map[string]int
+}
+
 func main() {
 	var stock []string
 	stock = stockInit()
 	fmt.Print(stock, "\n")
 
-	p1Hand := playerInit()
-	p2Hand := playerInit()
-	fmt.Println(p1Hand, "\n", p2Hand, "\n")
+	p1 := player{name: "p1"}
+	p1.inHandInit()
+
+	p2 := player{name: "p2"}
+	p2.inHandInit()
+
+	fmt.Println(p1.inHand, "\n", p2.inHand, "\n")
 }
 
 func stockInit() []string {
@@ -33,6 +42,8 @@ func stockInit() []string {
 	return s
 }
 
-func playerInit() map[string]int {
-	return map[string]int{"r": 0, "g": 0, "y": 0, "b": 0}
+func (p *player) inHandInit() {
+	p.inHand = map[string]int{"r": 0, "g": 0, "y": 0, "b": 0}
 }
+
+//func judgeWin(player) {}
